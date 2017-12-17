@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-      customers
+      about
   </div>
 </template>
 
