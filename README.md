@@ -1,8 +1,8 @@
-# useradmin
+# vue2.0用户管理后台
 
-> A Vue.js project
+> pc端的vue项目
 
-## Build Setup
+## 安装及打包说明
 
 ``` bash
 # install dependencies
