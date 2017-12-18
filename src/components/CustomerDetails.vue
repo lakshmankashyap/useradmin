@@ -1,7 +1,12 @@
 <template>
   <div class="customerdetails container">
+      <router-link class="btn btn-default" to="/">返回</router-link>
       <h1 class="page-header">
         {{customer.name}}
+        <span class="pull-right">
+          <router-link class="btn btn-primary" :to="'/edit/'+customer.id">编辑</router-link>
+          <button class="btn btn-danger" @click="deleteCustomer(customer.id)">删除</button>
+        </span>
       </h1>
       <ul class="list-group">
         <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.phone}}</span></li>
@@ -31,6 +36,11 @@ export default {
     fetchCustomers(id){
       this.$http.get("http://localhost:3000/users/"+id).then(function(response){
           this.customer = response.body
+      })
+    },
+    deleteCustomer(id){
+      this.$http.delete("http://localhost:3000/users/"+id).then(function(response){
+          this.$router.push({path:"/",query:{alert:"用户删除成功"}})
       })
     }
   },
