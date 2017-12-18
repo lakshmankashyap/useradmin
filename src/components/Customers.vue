@@ -39,6 +39,9 @@ export default {
   },
   created(){
     this.fetchCustomers()
+  },
+  updated(){
+    this.fetchCustomers()
   }
 }
 </script>
