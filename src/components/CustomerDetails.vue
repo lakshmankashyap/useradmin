@@ -1,6 +1,21 @@
 <template>
   <div class="customerdetails container">
-      customerdetails
+      <h1 class="page-header">
+        {{customer.name}}
+      </h1>
+      <ul class="list-group">
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.phone}}</span></li>
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.email}}</span></li>
+      </ul>
+
+      <ul class="list-group">
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.education}}</span></li>
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.graduationschool}}</span></li>
+
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.profession}}</span></li>
+        <li class="list-group-item"><span class="glyphoicon glyphicon glyphicon-asterisk"> {{customer.profile}}</span></li>
+
+      </ul>
   </div>
 </template>
 
@@ -9,8 +24,18 @@ export default {
   name: 'customerdetails',
   data () {
     return {
-        customers:""
+        customer:""
     }
+  },
+  methods:{
+    fetchCustomers(id){
+      this.$http.get("http://localhost:3000/users/"+id).then(function(response){
+          this.customer = response.body
+      })
+    }
+  },
+  created(){
+    this.fetchCustomers(this.$route.params.id)
   }
 }
 </script>
