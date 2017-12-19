@@ -1,6 +1,6 @@
 <template>
-  <div class="eidt container">
-      <h1 class="page-header">添加用户</h1>
+  <div class="edit container">
+      <h1 class="page-header">编辑用户</h1>
       <form v-on:submit="updateCustomer">
           <div class="well">
             <h4>用户信息</h4>
@@ -32,7 +32,7 @@
                 <label>个人简介</label>
                 <textarea rows="10" class="form-control" placeholder="profile" v-model="customer.profile"></textarea>
             </div>
-            <button type="sumit" class="btn btn-primary">添加</button>
+            <button type="sumit" class="btn btn-primary">更新</button>
           </div>
       </form>
   </div>
@@ -40,13 +40,18 @@
 
 <script>
 export default {
-  name: 'eidt',
+  name: 'edit',
   data () {
     return {
       customer:{}
     }
   },
   methods:{
+      fetchCustomer(id){
+          this.$http.get("http://localhost:3000/users/"+id).then(function(response){
+              this.customer = response.body
+          })
+      },
       updateCustomer(e){
         if(!this.customer.name || !this.customer.phone || !this.customer.email){
           console.log("请添加对应的信息！")
@@ -61,13 +66,16 @@ export default {
             profile:this.customer.profile
           }
           console.log(updateCustomer)
-           this.$http.put("http://localhost:3000/users"+this.$route.params.id,updateCustomer).then(function(response){
+           this.$http.put("http://localhost:3000/users/"+this.$route.params.id,updateCustomer).then(function(response){
              this.$router.push({path:"/",query:{alert:"用户信息更新成功"}})
            })
           e.preventDefault()
         }
         e.preventDefault()
       }
+  },
+  created(){
+    this.fetchCustomer(this.$route.params.id)
   }
 }
 </script>
